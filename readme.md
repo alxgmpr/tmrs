@@ -18,16 +18,10 @@ $ tmrs sleep 1
 
 ### Installation
 
-Install via `cargo`:
+Build it yourself:
 
 ```shell
-$ cargo install tmrs
-```
-
-Or clone and build it yourself:
-
-```shell
-$ git clone 
+$ git clone git@github.com:alxgmpr/tmrs.git
 $ cd tmrs
 $ cargo build --release
 $ cp target/release/tmrs /usr/local/bin # or wherever you want
