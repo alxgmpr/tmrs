@@ -6,14 +6,20 @@ Name inspired by `time`, with the obvious `rs` suffix. Pronounced "timers" (I gu
 
 ### Usage
 
-Just follow `tmrs` with `--` and the command you want to time
+Just follow `tmrs` with the command you want to time:
 
 ```shell
-$ tmrs -- sleep 1
+$ tmrs ls
+avg: 0.003sec
+std dev: 0.000sec
+```
 
-# output:
-# avg: 1.014sec
-# std dev: 0.006sec
+To pass arguments, separate the command from the arguments with `--`:
+
+```shell
+$ tmrs -- ls -R
+avg: 0.013sec
+std dev: 0.006sec
 ```
 
 ### Options
