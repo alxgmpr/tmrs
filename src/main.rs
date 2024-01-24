@@ -1,15 +1,16 @@
-use getopts::Options;
 use std::env;
 use std::process::Command;
 use std::time::Instant;
-use statistics::{mean};
+
+use getopts::Options;
+use statistics::mean;
 
 fn std_deviation(data: &Vec<f64>) -> Option<f32> {
     let data_mean = mean(data);
     let count = data.len();
     if count > 0 {
         let variance = data.iter().map(|value| {
-            let diff = data_mean - (*value as f64);
+            let diff = data_mean - *value;
             diff * diff
         }).sum::<f64>() / count as f64;
 
@@ -18,6 +19,7 @@ fn std_deviation(data: &Vec<f64>) -> Option<f32> {
         None
     }
 }
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -57,5 +59,18 @@ fn main() {
     match std_dev {
         Some(dev) => println!("std dev: {:.3}sec", dev),
         None => println!("std dev: N/A"),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_std_deviation() {
+        let data = vec![1.0, 2.0, 3.0, 4.0, 5.0];
+        let result = std_deviation(&data);
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), std::f32::consts::SQRT_2);
     }
 }
