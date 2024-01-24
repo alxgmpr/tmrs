@@ -23,7 +23,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let mut opts = Options::new();
-    opts.optopt("n", "num", "set number of runs", "NUM");
+    opts.optopt("n", "number", "set number of runs", "NUM");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => m,

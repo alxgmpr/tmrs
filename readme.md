@@ -16,6 +16,10 @@ $ tmrs sleep 1
 # std dev: 0.006sec
 ```
 
+### Options
+
+- `-n` or `--number` to specify the number of times to run the command (default: 5)
+
 ### Installation
 
 Build it yourself:
