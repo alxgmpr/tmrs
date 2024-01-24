@@ -9,11 +9,11 @@ fn std_deviation(data: &Vec<f64>) -> Option<f32> {
     let count = data.len();
     if count > 0 {
         let variance = data.iter().map(|value| {
-            let diff = data_mean - (*value as f64); // cast value to f64
+            let diff = data_mean - (*value as f64);
             diff * diff
-        }).sum::<f64>() / count as f64; // sum as f64 and divide by count as f64
+        }).sum::<f64>() / count as f64;
 
-        Some(variance.sqrt() as f32) // cast the result to f32
+        Some(variance.sqrt() as f32)
     } else {
         None
     }
@@ -38,7 +38,7 @@ fn main() {
     for _ in 0..num_runs {
         let start = Instant::now();
         let output = Command::new(command)
-            .args(command_args) // pass the command_args to the command
+            .args(command_args)
             .output()
             .expect("Failed to execute command");
 

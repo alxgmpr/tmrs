@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 statistics = "0.4.1"
-getopts = "0.2.21"
+getopts = { version = "0.2.21", features = [] }
