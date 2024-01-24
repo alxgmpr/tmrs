@@ -48,7 +48,7 @@ fn main() {
         Err(_) => {
             println!("{}", USAGE);
             std::process::exit(1);
-        },
+        }
     };
 
     if matches.opt_present("h") {
