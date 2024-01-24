@@ -1,9 +1,12 @@
 use std::env;
+use std::str;
 use std::process::Command;
 use std::time::Instant;
 
 use getopts::Options;
 use statistics::mean;
+use log::{debug, LevelFilter};
+use env_logger::Builder;
 
 fn std_deviation(data: &Vec<f64>) -> Option<f32> {
     let data_mean = mean(data);
@@ -26,18 +29,31 @@ fn main() {
 
     let mut opts = Options::new();
     opts.optopt("n", "number", "set number of runs", "NUM");
+    opts.optflag("d", "debug", "enable debug logging");
+    opts.optflag("v", "verbose", "log the output of the ran commands to stdout");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => m,
         Err(f) => panic!("{}", f.to_string()),
     };
 
+    let log_level = if matches.opt_present("d") {
+        LevelFilter::Debug
+    } else {
+        LevelFilter::Info
+    };
+    Builder::new().filter(None, log_level).init();
+
+
     let num_runs: u32 = matches.opt_str("n").and_then(|s| s.parse().ok()).unwrap_or(5);
+    debug!("Running {} times", num_runs);
     let command = if !matches.free.is_empty() { &matches.free[0] } else { panic!("No command provided"); };
+    debug!("Running command: {}", command);
     let command_args = if matches.free.len() > 1 { &matches.free[1..] } else { &[] };
+    debug!("Command args: {:?}", command_args);
 
     let mut times = Vec::new();
-    for _ in 0..num_runs {
+    for index in 0..num_runs {
         let start = Instant::now();
         let output = Command::new(command)
             .args(command_args)
@@ -51,6 +67,13 @@ fn main() {
 
         let duration = start.elapsed();
         times.push(duration.as_secs_f64());
+
+        debug!("Run #{} completed in {:.3} seconds", index + 1, duration.as_secs_f64());
+
+        if matches.opt_present("v") && !output.stdout.is_empty() {
+            debug!("Command output:");
+            println!("{}", str::from_utf8(&output.stdout).unwrap());
+        }
     }
     let avg_time = mean(&times);
     let std_dev = std_deviation(&times);
