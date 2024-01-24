@@ -18,7 +18,8 @@ $ tmrs sleep 1
 
 ### Options
 
-- `-n` or `--number` to specify the number of times to run the command (default: 5)
+- `-n` or `--number` to specify the number of times to run the command (default: 5
+  - ex: `tmrs -n 10 sleep 1` will run `sleep 1` 10 times
 
 ### Installation
 
