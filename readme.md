@@ -18,22 +18,29 @@ $ tmrs -- sleep 1
 
 ### Options
 
-- `-n` or `--number` to specify the number of times to run the command (default: 5)
-  - ex: `tmrs -n 10 -- sleep 1` will run `sleep 1` 10 times
-- `-v` or `--verbose` to print the outputs of each command
-  - ex: `tmrs -v -- ls -la` will print the output of `ls -la` for each run
-- `-d` or `--debug` to print debug information
-  - ex: `tmrs -d -- sleep 1` will print the time it took to run `sleep 1` for each run
+```
+Usage: tmrs [OPTIONS] <COMMAND>...
+
+Arguments:
+  <COMMAND>...  The command to time against
+
+Options:
+  -n, --number <NUMBER>  Number of runs to average [default: 5]
+  -d, --debug            Enable debug logging, log timing for each run
+  -v, --verbose          Log the output of the ran commands to stdout
+  -h, --help             Print help
+  -V, --version          Print version
+```
 
 ### Installation
 
-From crates.io (requires `cargo` to be installed):
+Install directly from crates.io and have package built on your machine (takes just a sec!):
 
 ```shell
 $ cargo install tmrs
 ```
 
-Build it yourself:
+Clone and build from source:
 
 ```shell
 $ git clone git@github.com:alxgmpr/tmrs.git
@@ -45,17 +52,3 @@ $ cp target/release/tmrs /usr/local/bin # or wherever you want
 ### License
 
 MIT
-
-### Linting/Formatting
-
-Linting:
-
-```shell
-$ cargo clippy --all-targets --all-features
-```
-
-Formatting:
-
-```shell
-$ cargo fmt --all
-```

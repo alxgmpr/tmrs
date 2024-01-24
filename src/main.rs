@@ -1,10 +1,9 @@
-use std::env;
 use std::process::Command;
 use std::str;
 use std::time::Instant;
 
+use clap::Parser;
 use env_logger::Builder;
-use getopts::Options;
 use log::{debug, LevelFilter};
 use statistics::mean;
 
@@ -27,56 +26,41 @@ fn std_deviation(data: &Vec<f64>) -> Option<f32> {
     }
 }
 
+#[derive(Parser, Debug)]
+#[clap(author, version, about, long_about = None)]
+struct Args {
+    /// Number of runs to average
+    #[clap(short, long, default_value = "5")]
+    number: u32,
+
+    /// Enable debug logging, log timing for each run
+    #[clap(short, long)]
+    debug: bool,
+
+    /// Log the output of the ran commands to stdout
+    #[clap(short, long)]
+    verbose: bool,
+
+    /// The command to time against
+    #[clap(required = true)]
+    command: Vec<String>,
+}
+
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args = Args::parse();
 
-    let mut opts = Options::new();
-    opts.optopt("n", "number", "number of runs, default 5", "NUM");
-    opts.optflag("d", "debug", "enable debug logging");
-    opts.optflag(
-        "v",
-        "verbose",
-        "log the output of the ran commands to stdout",
-    );
-    opts.optflag("h", "help", "print this help menu");
-
-    // usage constant
-    const USAGE: &str = "Usage: tmrs [options] -- command...";
-
-    let matches = match opts.parse(&args[1..]) {
-        Ok(m) => m,
-        Err(_) => {
-            println!("{}", USAGE);
-            std::process::exit(1);
-        }
-    };
-
-    if matches.opt_present("h") {
-        println!("{}", opts.usage(USAGE));
-        return;
-    }
-
-    if matches.free.is_empty() {
-        println!("{}", USAGE);
-        std::process::exit(1);
-    }
-
-    let log_level = if matches.opt_present("d") {
+    let log_level = if args.debug {
         LevelFilter::Debug
     } else {
         LevelFilter::Info
     };
     Builder::new().filter(None, log_level).init();
 
-    let num_runs: u32 = matches
-        .opt_str("n")
-        .and_then(|s| s.parse().ok())
-        .unwrap_or(5);
+    let num_runs: u32 = args.number;
     debug!("Running {} times", num_runs);
 
-    let command_parts = matches.free.clone();
-    let command = command_parts[0].as_str();
-    let command_args: Vec<&str> = command_parts[1..].iter().map(|s| s.as_str()).collect();
+    let command = &args.command[0];
+    let command_args: Vec<&str> = args.command[1..].iter().map(AsRef::as_ref).collect();
 
     debug!("Command: {}", command);
     debug!("Command args: {:?}", command_args);
@@ -103,7 +87,7 @@ fn main() {
             duration.as_secs_f64()
         );
 
-        if matches.opt_present("v") && !output.stdout.is_empty() {
+        if args.verbose && !output.stdout.is_empty() {
             debug!("Command output:");
             println!("{}", str::from_utf8(&output.stdout).unwrap());
         }
