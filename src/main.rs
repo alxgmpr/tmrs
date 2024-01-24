@@ -31,18 +31,35 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let mut opts = Options::new();
-    opts.optopt("n", "number", "set number of runs", "NUM");
+    opts.optopt("n", "number", "number of runs, default 5", "NUM");
     opts.optflag("d", "debug", "enable debug logging");
     opts.optflag(
         "v",
         "verbose",
         "log the output of the ran commands to stdout",
     );
+    opts.optflag("h", "help", "print this help menu");
+
+    // usage constant
+    const USAGE: &str = "Usage: tmrs [options] -- command...";
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => m,
-        Err(f) => panic!("{}", f.to_string()),
+        Err(_) => {
+            println!("{}", USAGE);
+            std::process::exit(1);
+        },
     };
+
+    if matches.opt_present("h") {
+        println!("{}", opts.usage(USAGE));
+        return;
+    }
+
+    if matches.free.is_empty() {
+        println!("{}", USAGE);
+        std::process::exit(1);
+    }
 
     let log_level = if matches.opt_present("d") {
         LevelFilter::Debug

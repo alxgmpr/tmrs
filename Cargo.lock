@@ -152,7 +152,7 @@ checksum = "3f4628c807954468b720f27d8863a5447d328378cbb874d633f6c4e952073acf"
 
 [[package]]
 name = "tmrs"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "env_logger",
  "getopts",
