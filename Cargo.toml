@@ -1,10 +1,10 @@
 [package]
 name = "tmrs"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Alex Gompper <agompper@me.com>"]
 license = "MIT"
-description = "A tool to search files"
+description = "CLI utility to measure time performance of commands with things like averages"
 readme = "readme.md"
 homepage = "https://github.com/alxgmpr/tmrs"
 repository = "https://github.com/alxgmpr/tmrs"
