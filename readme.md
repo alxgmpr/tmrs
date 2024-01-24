@@ -9,7 +9,7 @@ Name inspired by `time`, with the obvious `rs` suffix. Pronounced "timers" (I gu
 Just follow `tmrs` with the command you want to time
 
 ```shell
-$ tmrs sleep 1
+$ tmrs -- sleep 1
 
 # output:
 # avg: 1.014sec
@@ -19,7 +19,11 @@ $ tmrs sleep 1
 ### Options
 
 - `-n` or `--number` to specify the number of times to run the command (default: 5)
-  - ex: `tmrs -n 10 sleep 1` will run `sleep 1` 10 times
+  - ex: `tmrs -n 10 -- sleep 1` will run `sleep 1` 10 times
+- `-v` or `--verbose` to print the outputs of each command
+  - ex: `tmrs -v -- ls -la` will print the output of `ls -la` for each run
+- `-d` or `--debug` to print debug information
+  - ex: `tmrs -d -- sleep 1` will print the time it took to run `sleep 1` for each run
 
 ### Installation
 
@@ -36,8 +40,16 @@ $ cp target/release/tmrs /usr/local/bin # or wherever you want
 
 MIT
 
-### Linting
+### Linting/Formatting
+
+Linting:
 
 ```shell
 $ cargo clippy --all-targets --all-features
+```
+
+Formatting:
+
+```shell
+$ cargo fmt --all
 ```
