@@ -36,3 +36,8 @@ $ cp target/release/tmrs /usr/local/bin # or wherever you want
 
 MIT
 
+### Linting
+
+```shell
+$ cargo clippy --all-targets --all-features
+```
