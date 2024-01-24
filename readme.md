@@ -6,7 +6,7 @@ Name inspired by `time`, with the obvious `rs` suffix. Pronounced "timers" (I gu
 
 ### Usage
 
-Just follow `tmrs` with the command you want to time
+Just follow `tmrs` with `--` and the command you want to time
 
 ```shell
 $ tmrs -- sleep 1
