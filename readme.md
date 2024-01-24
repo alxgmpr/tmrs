@@ -27,6 +27,12 @@ $ tmrs -- sleep 1
 
 ### Installation
 
+From crates.io (requires `cargo` to be installed):
+
+```shell
+$ cargo install tmrs
+```
+
 Build it yourself:
 
 ```shell
