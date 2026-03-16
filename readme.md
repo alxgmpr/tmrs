@@ -1,12 +1,14 @@
 # tmrs
 
-CLI utility to measure time performance of commands with things like averages and standard deviation built in.
+CLI utility to measure time performance of commands with averages and standard deviation.
 
 Name inspired by `time`, with the obvious `rs` suffix. Pronounced "timers" (I guess?).
 
-### Usage
+Requires Rust 1.85+ (edition 2024).
 
-Just follow `tmrs` with the command you want to time:
+## Usage
+
+Follow `tmrs` with the command you want to time:
 
 ```shell
 $ tmrs ls
@@ -14,15 +16,23 @@ avg: 0.003sec
 std dev: 0.000sec
 ```
 
-To pass arguments, separate the command from the arguments with `--`:
+Use `--` to separate tmrs options from the command's arguments:
 
 ```shell
-$ tmrs -- ls -R
+$ tmrs -n 10 -- ls -R
 avg: 0.013sec
 std dev: 0.006sec
 ```
 
-### Options
+With a single run, standard deviation is not available:
+
+```shell
+$ tmrs -n 1 echo hello
+avg: 0.002sec
+std dev: N/A
+```
+
+## Options
 
 ```
 Usage: tmrs [OPTIONS] <COMMAND>...
@@ -38,23 +48,23 @@ Options:
   -V, --version          Print version
 ```
 
-### Installation
+## Installation
 
-Install directly from crates.io and have package built on your machine (takes just a sec!):
+From crates.io:
 
 ```shell
 $ cargo install tmrs
 ```
 
-Clone and build from source:
+From source:
 
 ```shell
 $ git clone git@github.com:alxgmpr/tmrs.git
 $ cd tmrs
 $ cargo build --release
-$ cp target/release/tmrs /usr/local/bin # or wherever you want
+$ cp target/release/tmrs /usr/local/bin
 ```
 
-### License
+## License
 
 MIT

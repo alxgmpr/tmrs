@@ -1,7 +1,8 @@
 [package]
 name = "tmrs"
-version = "0.3.0"
-edition = "2021"
+version = "0.4.0"
+edition = "2024"
+rust-version = "1.85"
 authors = ["Alex Gompper <agompper@me.com>"]
 license = "MIT"
 description = "CLI utility to measure time performance of commands with things like averages"
@@ -11,9 +12,8 @@ repository = "https://github.com/alxgmpr/tmrs"
 keywords = ["cli", "timing", "testing", "benchmarking"]
 categories = ["command-line-utilities"]
 
-
 [dependencies]
-statistics = "0.4.1"
-log = "0.4.20"
-env_logger = "0.11.0"
-clap = { version =  "4.4.18", features = ["derive"] }
+statistics = "0.4"
+log = "0.4"
+env_logger = "0.11"
+clap = { version = "4", features = ["derive"] }
