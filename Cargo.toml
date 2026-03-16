@@ -16,4 +16,4 @@ categories = ["command-line-utilities"]
 statistics = "0.4"
 log = "0.4"
 env_logger = "0.11"
-clap = { version = "4.5", features = ["derive"] }
+clap = { version = "4", features = ["derive"] }
