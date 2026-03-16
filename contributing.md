@@ -1,17 +1,11 @@
 # Contribution Guidelines
 
-In short, everything is welcome just be professional. Use a good description if you're going to open a PR.
+Everything is welcome, just be professional. Use a good description if you're going to open a PR.
 
-### Linting/Formatting
-
-Linting:
-
-```shell
-$ cargo clippy --all-targets --all-features
-```
-
-Formatting:
+CI runs formatting, clippy, and tests on ubuntu/macos/windows — make sure these pass locally before pushing:
 
 ```shell
 $ cargo fmt --all
+$ cargo clippy --all-targets --all-features
+$ cargo test
 ```
